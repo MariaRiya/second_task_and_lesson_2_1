@@ -23,24 +23,24 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-    }
+        val newIntent = Intent(this, SecondActivity::class.java)
 
-    var resultLauncher = this.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val data: Intent? = result.data
-            text_header_reply.visibility = View.VISIBLE
-            text_message_reply.text =  data?.getStringExtra(EXTRA_REPLY).toString()
-            text_message_reply.visibility = View.VISIBLE
 
+        button_chapter1.setOnClickListener {
+            newIntent.putExtra("CHAPTER", 1)
+            startActivity(newIntent)
+        }
+
+        button_chapter2.setOnClickListener {
+            newIntent.putExtra("CHAPTER", 2)
+            startActivity(newIntent)
+        }
+
+        button_chapter3.setOnClickListener {
+            newIntent.putExtra("CHAPTER", 3)
+            startActivity(newIntent)
         }
     }
 
-    fun launchSecondActivity(view: View) {
-        Log.d(LOG_TAG, "Button clicked!")
-        val intent = Intent(this, SecondActivity::class.java)
-        intent.putExtra(EXTRA_MESSAGE, editText_main.text.toString())
-        editText_main.setText("")
-        resultLauncher.launch(intent)
 
-    }
 }
